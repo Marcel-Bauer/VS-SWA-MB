@@ -11,9 +11,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HsehellowordApplication {
 
+	private String state = "no_state";
+
 	@GetMapping()
-	public String Hans() {
-		return "HURENSPOHN!!!";
+	public String HalloMarcel() {
+		return "Hallo Marcel das ist deine Webseite";
+	}
+
+	@GetMapping("/otherEndpoint")
+	public String helloMAgain(){
+		return "Hallo ich bins wieder hast du den Müll rausgebracht?";
+	}
+
+	@PostMapping("/somePost/{stringParam}")
+	public String withInput(@PathVariable String stringParam){
+		state = stringParam;
+		return "Diesen String habe ich erhalten: " + stringParam;
 	}
 
 	public static void main(String[] args) {
