@@ -2,6 +2,9 @@ package com.example.TestSpringInit;
 
 
 import java.util.ArrayList;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestSpringInitApplication {
 
 	ArrayList<String> listOfStrings = new ArrayList<String>();
+	private Logger logger = LoggerFactory.getLogger(TestSpringInitApplication.class);
 	
 	@GetMapping("/strings")
 	public String readStrings(){
@@ -31,22 +35,26 @@ public class TestSpringInitApplication {
 	@PostMapping("/strings/{newString}")
 	public String addNewString(@PathVariable String newString){
 
-		System.out.println("String to add: "+newString);
+		logger.error("String to add: {}",newString);
 		listOfStrings.add(newString);
+		logger.debug("Current list of strings {}",listOfStrings);
 		return newString+" has been added to the list";
 
 	}
 	@PutMapping("/strings/{oldString}/{newString}")
 	public String updateString(@PathVariable String newString){
+
+			// Todo :-)
 			return "nothing happend with " + newString;
 	}
 
 	@DeleteMapping("/strings/{stringToDelete}")
 	public String deleteString(@PathVariable String stringToDelete){
 
-		System.out.println("String to add: "+stringToDelete);
+		logger.info("String to delete : {}",stringToDelete);
 		listOfStrings.remove(stringToDelete);
-		return stringToDelete+" has been deleted from the list";
+		logger.debug("Current list of strings {}",listOfStrings);
+		return stringToDelete+" has most likely been removed from the list";
 	}
 
 	public static void main(String[] args) {
